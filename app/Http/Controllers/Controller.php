@@ -9,8 +9,8 @@ namespace App\Http\Controllers;
  *     description="API documentation"
  * )
  * @OA\Server(
- *     url="http://localhost:8000/api",
- *     description="Local"
+ *     url=L5_SWAGGER_CONST_HOST,
+ *     description="API Server"
  * )
  *
  * @OA\SecurityScheme(
