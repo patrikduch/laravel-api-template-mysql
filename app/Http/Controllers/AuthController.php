@@ -9,7 +9,6 @@ use Illuminate\Http\Response;
 
 class AuthController extends Controller
 {
-    // POST /auth/login
     public function login(Request $request)
     {
         $request->validate([
