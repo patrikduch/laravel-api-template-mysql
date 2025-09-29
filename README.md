@@ -93,7 +93,6 @@ docker compose run --rm app php artisan cache:table
 docker compose exec app php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
 
 
-docker compose exec app php artisan migrate
 
 Create a migration
 docker compose exec app php artisan make:migration create_users_table
@@ -113,4 +112,17 @@ docker compose exec app php artisan vendor:publish --provider="L5Swagger\L5Swagg
 ### generate docs
 
 docker compose exec app php artisan l5-swagger:generate
+
+
+
+## Deployment
+
+
+### Dockerfile build
+
+docker build -f Dockerfile.production -t laravel-api-template-mysql .
+
+
+### Docker run
+docker run -d -p 8888:8080 --name laravel-api-template-mysql laravel-api-template-mysql
 
