@@ -101,3 +101,16 @@ docker compose exec app php artisan make:migration create_users_table
 
 Apply migrations
 docker compose run --rm app php artisan migrate
+
+
+
+## Swagger documentation
+docker compose exec app composer require darkaonline/l5-swagger
+docker compose exec app php artisan vendor:publish --provider="L5Swagger\L5SwaggerServiceProvider"
+
+
+
+### generate docs
+
+docker compose exec app php artisan l5-swagger:generate
+
