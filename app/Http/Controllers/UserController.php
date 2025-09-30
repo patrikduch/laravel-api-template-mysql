@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Contracts\UserServiceInterface;
+use App\DTOs\Users\RegisterUserDTO;
+use App\Http\Requests\RegisterUserRequest;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 /**
  * @OA\Tag(
@@ -15,6 +17,10 @@ use Illuminate\Support\Facades\Hash;
  */
 class UserController extends Controller
 {
+    public function __construct(
+        private readonly UserServiceInterface $userService
+    ) {}
+
     /**
      * Register a new user.
      *
@@ -46,8 +52,8 @@ class UserController extends Controller
      *         @OA\Property(property="id", type="integer", example=1),
      *         @OA\Property(property="name", type="string", example="John Doe"),
      *         @OA\Property(property="email", type="string", example="john@example.com"),
-     *         @OA\Property(property="created_at", type="string", format="date-time", example="2025-09-29T10:15:30.000000Z"),
-     *         @OA\Property(property="updated_at", type="string", format="date-time", example="2025-09-29T10:15:30.000000Z")
+     *         @OA\Property(property="created_at", type="string", format="date-time", example="2025-09-29T10:15:30+00:00"),
+     *         @OA\Property(property="updated_at", type="string", format="date-time", example="2025-09-29T10:15:30+00:00")
      *       )
      *     )
      *   ),
@@ -79,33 +85,26 @@ class UserController extends Controller
      *   )
      * )
      */
-    public function store(Request $request)
+    public function store(RegisterUserRequest $request): JsonResponse
     {
         try {
-            $validated = $request->validate([
-                'name'     => ['required', 'string', 'max:255'],
-                'email'    => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-                'password' => ['required', 'string', 'min:8'],
-            ]);
+            // Convert validated request to DTO
+            $dto = RegisterUserDTO::fromRequest($request);
 
-            $user = User::create([
-                'name'     => $validated['name'],
-                'email'    => $validated['email'],
-                'password' => Hash::make($validated['password']),
-            ]);
+            // Service returns the response DTO
+            $responseDto = $this->userService->register($dto);
 
-            return response()->json([
-                'user'         => $user,
-            ], Response::HTTP_CREATED);
-
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json([
-                'message' => 'Validation failed',
-                'errors'  => $e->errors(),
-            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+            // DTO enforces the response structure
+            return response()->json(
+                $responseDto->toArray(),
+                Response::HTTP_CREATED
+            );
 
         } catch (\Exception $e) {
-            \Log::error('User registration failed: ' . $e->getMessage());
+            Log::error('User registration failed', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
 
             return response()->json([
                 'message' => 'Registration failed. Please try again.',
