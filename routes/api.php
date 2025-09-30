@@ -8,9 +8,9 @@ use App\Http\Controllers\UserController;
 Route::post('/register', [UserController::class, 'store']);
 
 // Auth (AuthController)
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/auth/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/me', [AuthController::class, 'me']); // renamed from /user for clarity
+    Route::post('/auth/logout', [AuthController::class, 'logout']);
+    Route::get('/auth/me', [AuthController::class, 'me']); // renamed from /user for clarity
 });

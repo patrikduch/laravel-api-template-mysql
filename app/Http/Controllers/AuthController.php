@@ -2,39 +2,129 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\AuthServiceInterface;
+use App\DTOs\Auth\AuthResponseDTO;
+use App\DTOs\Auth\LoginDTO;
+use App\Http\Requests\LoginRequest;
+use App\Http\Resources\UserResource;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
 
+/**
+ * @OA\Tag(
+ *   name="Auth",
+ *   description="Authentication flow (login, logout, me]"
+ * )
+ */
 class AuthController extends Controller
 {
-    public function login(Request $request)
-    {
-        $request->validate([
-            'email'    => ['required', 'email'],
-            'password' => ['required', 'string'],
-        ]);
+    public function __construct(
+        private readonly AuthServiceInterface $authService
+    ) {}
 
-        if (! Auth::attempt($request->only('email', 'password'))) {
+    /**
+     * Authenticate user and return access token.
+     *
+     * @OA\Post(
+     *   path="/auth/login",
+     *   tags={"Auth"},
+     *   summary="Login",
+     *   operationId="loginUser",
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\JsonContent(
+     *       required={"email","password"},
+     *       @OA\Property(property="email", type="string", format="email", example="john@example.com"),
+     *       @OA\Property(property="password", type="string", format="password", example="secret123")
+     *     )
+     *   ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="Login successful",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="access_token", type="string", example="1|xxxxx..."),
+     *       @OA\Property(property="token_type", type="string", example="Bearer")
+     *     )
+     *   ),
+     *   @OA\Response(
+     *     response=401,
+     *     description="Invalid credentials",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="The provided credentials are incorrect."),
+     *       @OA\Property(
+     *         property="errors",
+     *         type="object",
+     *         @OA\Property(
+     *           property="email",
+     *           type="array",
+     *           @OA\Items(type="string", example="The provided credentials are incorrect.")
+     *         )
+     *       )
+     *     )
+     *   ),
+     *   @OA\Response(
+     *     response=422,
+     *     description="Validation failed",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="The email field is required."),
+     *       @OA\Property(
+     *         property="errors",
+     *         type="object",
+     *         @OA\AdditionalProperties(
+     *           type="array",
+     *           @OA\Items(type="string")
+     *         )
+     *       )
+     *     )
+     *   )
+     * )
+     */
+    public function login(LoginRequest $request): JsonResponse
+    {
+        $dto = LoginDTO::fromRequest($request);
+        $token = $this->authService->login($dto);
+
+        if (!$token) {
             return response()->json([
                 'message' => 'The provided credentials are incorrect.',
                 'errors' => [
                     'email' => ['The provided credentials are incorrect.']
                 ]
-            ], Response::HTTP_UNAUTHORIZED); // 401
+            ], Response::HTTP_UNAUTHORIZED);
         }
 
-        $user  = Auth::user();
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $responseDto = AuthResponseDTO::fromToken($token);
 
-        return response()->json([
-            'access_token' => $token,
-            'token_type'   => 'Bearer',
-        ], Response::HTTP_OK);
+        return response()->json($responseDto->toArray(), Response::HTTP_OK);
     }
 
-    // POST /auth/logout
-    public function logout(Request $request)
+    /**
+     * Logout the authenticated user.
+     *
+     * @OA\Post(
+     *   path="/auth/logout",
+     *   tags={"Auth"},
+     *   summary="Logout",
+     *   operationId="logoutUser",
+     *   security={{"bearerAuth":{}}},
+     *   @OA\Response(
+     *     response=200,
+     *     description="Logout successful",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Successfully logged out")
+     *     )
+     *   ),
+     *   @OA\Response(
+     *     response=401,
+     *     description="Unauthenticated",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Unauthenticated.")
+     *     )
+     *   )
+     * )
+     */
+    public function logout(Request $request): JsonResponse
     {
         $request->user()->currentAccessToken()->delete();
 
@@ -43,9 +133,37 @@ class AuthController extends Controller
         ], Response::HTTP_OK);
     }
 
-    // GET /auth/me
-    public function me(Request $request)
+    /**
+     * Get authenticated user details.
+     *
+     * @OA\Get(
+     *   path="/auth/me",
+     *   tags={"Auth"},
+     *   summary="Get current user",
+     *   operationId="getCurrentUser",
+     *   security={{"bearerAuth":{}}},
+     *   @OA\Response(
+     *     response=200,
+     *     description="User details",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="id", type="integer", example=1),
+     *       @OA\Property(property="name", type="string", example="John Doe"),
+     *       @OA\Property(property="email", type="string", example="john@example.com"),
+     *       @OA\Property(property="created_at", type="string", format="date-time", example="2025-09-30T10:00:00Z"),
+     *       @OA\Property(property="updated_at", type="string", format="date-time", example="2025-09-30T10:00:00Z")
+     *     )
+     *   ),
+     *   @OA\Response(
+     *     response=401,
+     *     description="Unauthenticated",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Unauthenticated.")
+     *     )
+     *   )
+     * )
+     */
+    public function me(Request $request): UserResource
     {
-        return response()->json($request->user(), Response::HTTP_OK);
+        return new UserResource($request->user());
     }
 }
