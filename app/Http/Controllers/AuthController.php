@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\AuthServiceInterface;
 use App\DTOs\Auth\AuthResponseDTO;
 use App\DTOs\Auth\LoginDTO;
+use App\DTOs\Users\UserResponseDTO;
 use App\Http\Requests\LoginRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
@@ -162,8 +163,9 @@ class AuthController extends Controller
      *   )
      * )
      */
-    public function me(Request $request): UserResource
+    public function me(Request $request): JsonResponse
     {
-        return new UserResource($request->user());
+        $dto = UserResponseDTO::fromModel($request->user());
+        return response()->json($dto, Response::HTTP_OK);
     }
 }
