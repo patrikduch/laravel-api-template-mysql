@@ -7,7 +7,6 @@ use App\DTOs\Auth\AuthResponseDTO;
 use App\DTOs\Auth\LoginDTO;
 use App\DTOs\Users\UserResponseDTO;
 use App\Http\Requests\LoginRequest;
-use App\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
