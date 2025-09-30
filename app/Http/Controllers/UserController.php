@@ -34,8 +34,9 @@ class UserController extends Controller
      *   @OA\RequestBody(
      *     required=true,
      *     @OA\JsonContent(
-     *       required={"name","email","password"},
-     *       @OA\Property(property="name", type="string", maxLength=255, example="John Doe"),
+     *       required={"first_name","last_name","email","password"},
+     *       @OA\Property(property="first_name", type="string", maxLength=255, example="John"),
+     *       @OA\Property(property="last_name", type="string", maxLength=255, example="Doe"),
      *       @OA\Property(property="email", type="string", format="email", maxLength=255, example="john@example.com"),
      *       @OA\Property(property="password", type="string", format="password", minLength=8, example="secret123")
      *     )
@@ -44,13 +45,14 @@ class UserController extends Controller
      *     response=201,
      *     description="User created",
      *     @OA\JsonContent(
-     *       @OA\Property(property="access_token", type="string", example="eyJ0eXAiOiJKV1QiLCJhbGci..."),
+     *       @OA\Property(property="access_token", type="string", example="1|xxxxx..."),
      *       @OA\Property(property="token_type", type="string", example="Bearer"),
      *       @OA\Property(
      *         property="user",
      *         type="object",
      *         @OA\Property(property="id", type="integer", example=1),
-     *         @OA\Property(property="name", type="string", example="John Doe"),
+     *         @OA\Property(property="first_name", type="string", example="John"),
+     *         @OA\Property(property="last_name", type="string", example="Doe"),
      *         @OA\Property(property="email", type="string", example="john@example.com"),
      *         @OA\Property(property="created_at", type="string", format="date-time", example="2025-09-29T10:15:30+00:00"),
      *         @OA\Property(property="updated_at", type="string", format="date-time", example="2025-09-29T10:15:30+00:00")

@@ -13,7 +13,8 @@ class UserService implements UserServiceInterface
     public function register(RegisterUserDTO $dto): UserRegistrationResponseDTO
     {
         $user = User::create([
-            'name' => $dto->name,
+            'first_name' => $dto->first_name,
+            'last_name' => $dto->last_name,
             'email' => $dto->email,
             'password' => Hash::make($dto->password),
         ]);
