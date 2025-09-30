@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\AuthServiceInterface;
-use App\DTOs\Auth\AuthResponseDTO;
-use App\DTOs\Auth\LoginDTO;
-use App\DTOs\Users\UserResponseDTO;
+use App\DTOs\Auth\Requests\LoginDTO;
+use App\DTOs\Auth\Responses\AuthResponseDTO;
+use App\DTOs\Users\Responses\UserResponseDTO;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

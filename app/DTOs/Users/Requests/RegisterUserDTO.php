@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTOs\Users;
+namespace App\DTOs\Users\Requests;
 
 use App\Http\Requests\RegisterUserRequest;
 

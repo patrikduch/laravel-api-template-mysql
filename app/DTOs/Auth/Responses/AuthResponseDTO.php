@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTOs\Auth;
+namespace App\DTOs\Auth\Responses;
 
 readonly class AuthResponseDTO
 {

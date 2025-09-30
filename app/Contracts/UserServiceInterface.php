@@ -2,8 +2,8 @@
 
 namespace App\Contracts;
 
-use App\DTOs\Users\RegisterUserDTO;
-use App\DTOs\Users\UserRegistrationResponseDTO;
+use App\DTOs\Users\Requests\RegisterUserDTO;
+use App\DTOs\Users\Responses\UserRegistrationResponseDTO;
 
 interface UserServiceInterface
 {

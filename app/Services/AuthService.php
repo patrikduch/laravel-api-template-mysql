@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Contracts\AuthServiceInterface;
-use App\DTOs\Auth\LoginDTO;
+use App\DTOs\Auth\Requests\LoginDTO;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 

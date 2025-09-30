@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use App\Contracts\UserServiceInterface;
-use App\DTOs\Users\RegisterUserDTO;
-use App\DTOs\Users\UserRegistrationResponseDTO;
+use App\DTOs\Users\Requests\RegisterUserDTO;
+use App\DTOs\Users\Responses\UserRegistrationResponseDTO;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTOs\Auth;
+namespace App\DTOs\Auth\Requests;
 
 use App\Http\Requests\LoginRequest;
 

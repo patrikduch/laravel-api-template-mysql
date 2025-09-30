@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\UserServiceInterface;
-use App\DTOs\Users\RegisterUserDTO;
+use App\DTOs\Users\Requests\RegisterUserDTO;
 use App\Http\Requests\RegisterUserRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
