@@ -87,11 +87,19 @@ docker compose up -d --build --force-recreate
 
 ### Composer install dependencies
 
+#### Run installation script in isolated docker
 
-Run installation script in isolated docker
+```bash
 docker compose run --rm app composer install --prefer-dist --no-interaction --no-progress --no-scripts
+```
 
+#### Generate app key
+
+Before running your Laravel application, you need to generate an application key. This key is used by Laravel to encrypt sensitive data such as session values, cookies, and other encrypted information.
+
+```bash
 docker compose exec app php artisan key:generate
+```
 
 
 ### DB preparation
