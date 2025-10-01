@@ -108,15 +108,18 @@ docker compose run --rm app php artisan migrate
 
 
 ## Swagger documentation
+```bash
 docker compose exec app composer require darkaonline/l5-swagger
 docker compose exec app php artisan vendor:publish --provider="L5Swagger\L5SwaggerServiceProvider"
+```
 
 
 
 ### generate docs
 
+```bash
 docker compose exec app php artisan l5-swagger:generate
-
+```
 
 
 ## Deployment
@@ -128,8 +131,8 @@ docker compose exec app php artisan l5-swagger:generate
 docker build -f Dockerfile.production -t laravel-api-template-mysql .
 ```
 
-
-
 ### Docker run
-docker run -d -p 8888:8080 --name laravel-api-template-mysql laravel-api-template-mysql
 
+```bash
+docker run -d -p 8888:8080 --name laravel-api-template-mysql laravel-api-template-mysql
+```
