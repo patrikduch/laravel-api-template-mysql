@@ -124,7 +124,10 @@ docker compose exec app php artisan l5-swagger:generate
 
 ### Dockerfile build
 
+```bash
 docker build -f Dockerfile.production -t laravel-api-template-mysql .
+```
+
 
 
 ### Docker run
