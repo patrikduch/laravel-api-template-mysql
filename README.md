@@ -69,13 +69,21 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ### Recreating docker environment
 
+```bash
 docker compose down
+```
+
+```bash
 docker compose build app
+```
+
+```bash
 docker compose up -d
+```
 
-
+```bash
 docker compose up -d --build --force-recreate
-
+```
 
 ### Composer install dependencies
 
