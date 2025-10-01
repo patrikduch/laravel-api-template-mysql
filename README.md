@@ -112,10 +112,17 @@ docker compose exec app php artisan vendor:publish --provider="Laravel\Sanctum\S
 
 
 
-Create a migration
-docker compose exec app php artisan make:migration create_users_table
-docker compose exec app php artisan make:migration update_users_table_add_first_last_name
+#### Create a migration
 
+Example migration #1
+```bash
+docker compose exec app php artisan make:migration create_users_table
+```
+
+Example migration #2
+```bash
+docker compose exec app php artisan make:migration update_users_table_add_first_last_name
+```
 
 
 #### Apply migrations
