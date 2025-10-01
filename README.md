@@ -118,9 +118,11 @@ docker compose exec app php artisan make:migration update_users_table_add_first_
 
 
 
-Apply migrations
-docker compose run --rm app php artisan migrate
+#### Apply migrations
 
+```bash
+docker compose run --rm app php artisan migrate
+```
 
 
 ## Swagger documentation
