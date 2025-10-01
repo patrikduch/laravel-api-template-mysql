@@ -104,9 +104,20 @@ docker compose exec app php artisan key:generate
 
 ### DB preparation
 
+
+```bash
 docker compose run --rm app php artisan session:table
+```
+
+```bash
 docker compose run --rm app php artisan queue:table
+```
+
+
+```bash
 docker compose run --rm app php artisan cache:table
+```
+
 
 docker compose exec app php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
 
