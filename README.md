@@ -124,8 +124,9 @@ docker compose exec app php artisan vendor:publish --provider="Laravel\Sanctum\S
 
 ### Install external package with composer
 
+```bash
 docker compose exec app composer require aws/aws-sdk-php
-
+```
 
 
 
