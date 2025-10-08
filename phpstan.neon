@@ -9,8 +9,8 @@ parameters:
   level: 5
 
   # Optional but recommended
-  ignoreErrors:
-    - '#Call to an undefined method Illuminate\\.*#'
+  #ignoreErrors:
+  #  - '#Call to an undefined method Illuminate\\.*#'
 
   # To speed up analysis in Docker
   tmpDir: storage/phpstan
