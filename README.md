@@ -122,6 +122,12 @@ docker compose run --rm app php artisan cache:table
 docker compose exec app php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
 
 
+### Install external package with composer
+
+docker compose exec app composer require aws/aws-sdk-php
+
+
+
 
 #### Create a migration
 
