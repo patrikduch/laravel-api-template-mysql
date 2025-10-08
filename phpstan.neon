@@ -1,0 +1,21 @@
+includes:
+  - vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+  paths:
+    - app
+
+  # You can adjust the strictness level (0–9, or 'max')
+  level: 5
+
+  # Optional but recommended
+  ignoreErrors:
+    - '#Call to an undefined method Illuminate\\.*#'
+
+  # To speed up analysis in Docker
+  tmpDir: storage/phpstan
+
+  # Helps PHPStan find Laravel-specific classes
+  scanDirectories:
+    - bootstrap
+    - config

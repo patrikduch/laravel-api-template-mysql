@@ -23,6 +23,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
  && php -m | grep gd \
  && rm -rf /var/lib/apt/lists/*
 
+# Increase PHP memory limit globally for CLI
+RUN echo "memory_limit=1G" > /usr/local/etc/php/conf.d/99-memory-limit.ini
+
 # Install Composer globally
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
