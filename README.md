@@ -128,6 +128,11 @@ docker compose exec app php artisan vendor:publish --provider="Laravel\Sanctum\S
 docker compose exec app composer require aws/aws-sdk-php
 ```
 
+```bash
+docker compose exec app composer require --dev phpstan/phpstan
+```
+
+
 
 
 #### Create a migration
@@ -150,12 +155,19 @@ docker compose run --rm app php artisan migrate
 ```
 
 
+## Analysis
+
+docker compose exec app vendor/bin/phpstan --version
+docker compose exec app composer require --dev nunomaduro/larastan
+
+docker compose exec app vendor/bin/phpstan analyse
+
+
 ## Swagger documentation
 ```bash
 docker compose exec app composer require darkaonline/l5-swagger
 docker compose exec app php artisan vendor:publish --provider="L5Swagger\L5SwaggerServiceProvider"
 ```
-
 
 
 ### generate docs
