@@ -19,7 +19,9 @@ class UserRegistrationResponseDTO
     {
         $userData = [
             'id' => $this->user->id,
-            'name' => $this->user->name,
+            'first_name' => $this->user->first_name,
+            'last_name' => $this->user->last_name,
+            'full_name' => $this->user->full_name,
             'email' => $this->user->email,
             'created_at' => $this->user->created_at?->toIso8601String(),
             'updated_at' => $this->user->updated_at?->toIso8601String(),
