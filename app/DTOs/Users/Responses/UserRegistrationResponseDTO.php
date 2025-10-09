@@ -10,7 +10,8 @@ class UserRegistrationResponseDTO
         public readonly User $user,
         public readonly ?string $accessToken = null,
         public readonly string $tokenType = 'Bearer'
-    ) {}
+    ) {
+    }
 
     /**
      * Convert the DTO to a strictly typed array

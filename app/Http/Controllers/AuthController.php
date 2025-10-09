@@ -21,7 +21,8 @@ class AuthController extends Controller
 {
     public function __construct(
         private readonly AuthServiceInterface $authService
-    ) {}
+    ) {
+    }
 
     /**
      * Authenticate user and return access token.
@@ -89,8 +90,8 @@ class AuthController extends Controller
             return response()->json([
                 'message' => 'The provided credentials are incorrect.',
                 'errors' => [
-                    'email' => ['The provided credentials are incorrect.']
-                ]
+                    'email' => ['The provided credentials are incorrect.'],
+                ],
             ], Response::HTTP_UNAUTHORIZED);
         }
 
@@ -165,6 +166,7 @@ class AuthController extends Controller
     public function me(Request $request): JsonResponse
     {
         $dto = UserResponseDTO::fromModel($request->user());
+
         return response()->json($dto, Response::HTTP_OK);
     }
 }

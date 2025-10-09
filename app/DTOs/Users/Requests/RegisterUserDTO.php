@@ -11,7 +11,8 @@ class RegisterUserDTO
         public readonly string $last_name,
         public readonly string $email,
         public readonly string $password
-    ) {}
+    ) {
+    }
 
     public static function fromRequest(RegisterUserRequest $request): self
     {

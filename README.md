@@ -162,6 +162,42 @@ docker compose exec app composer require --dev nunomaduro/larastan
 
 docker compose exec app vendor/bin/phpstan analyse
 
+###  PHP CS Fixer
+docker compose exec app composer require --dev friendsofphp/php-cs-fixer
+
+
+####  Usage
+
+```bash
+docker compose exec app composer cs:check
+```
+
+```bash
+docker compose exec app composer cs:fix
+```
+
+
+
+
+###  Codesniffer
+
+```bash
+docker compose exec app composer require --dev squizlabs/php_codesniffer
+```
+
+
+#### Usage
+
+```bash
+docker compose exec app compose exec app composer phpcs
+```
+
+
+
+
+
+
+
 
 ## Swagger documentation
 ```bash

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruleset name="Laravel Project">
+    <description>PHP CodeSniffer configuration</description>
+
+    <!-- Files to check -->
+    <file>app</file>
+    <file>config</file>
+    <file>database</file>
+    <file>routes</file>
+    <file>tests</file>
+
+    <!-- Exclude patterns -->
+    <exclude-pattern>*/cache/*</exclude-pattern>
+    <exclude-pattern>*/storage/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/bootstrap/cache/*</exclude-pattern>
+    <exclude-pattern>*/*.blade.php</exclude-pattern>
+
+    <!-- Use PSR-12 coding standard -->
+    <rule ref="PSR12"/>
+
+    <!-- Line length -->
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="150"/>
+        </properties>
+    </rule>
+
+    <!-- Show progress and use colors -->
+    <arg value="p"/>
+    <arg name="colors"/>
+    <arg value="s"/>
+</ruleset>

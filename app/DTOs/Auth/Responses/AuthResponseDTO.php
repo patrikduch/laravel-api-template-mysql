@@ -7,7 +7,8 @@ readonly class AuthResponseDTO
     public function __construct(
         public string $access_token,
         public string $token_type = 'Bearer',
-    ) {}
+    ) {
+    }
 
     public static function fromToken(string $token): self
     {

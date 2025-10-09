@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * @OA\Tag(
@@ -91,15 +91,15 @@ class AwsSESController extends Controller
             });
 
             return response()->json([
-                'ok'      => true,
-                'to'      => $data['to'],
+                'ok' => true,
+                'to' => $data['to'],
                 'message' => 'Email sent via AWS SES mailer.',
             ], 200);
         } catch (\Throwable $e) {
             Log::error('AWS SES send failed', ['error' => $e->getMessage()]);
 
             return response()->json([
-                'ok'    => false,
+                'ok' => false,
                 'error' => 'Sending failed',
             ], 500);
         }

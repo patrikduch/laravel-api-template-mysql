@@ -13,7 +13,8 @@ readonly class UserResponseDTO
         public string $email,
         public ?string $created_at,
         public ?string $updated_at,
-    ) {}
+    ) {
+    }
 
     public static function fromModel(User $user): self
     {
