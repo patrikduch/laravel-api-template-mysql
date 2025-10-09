@@ -6,21 +6,15 @@ services:
       # Let IDE map paths
       PHP_IDE_CONFIG: "serverName=laravel-api-starter"
 
-      # Turn on Xdebug (override in compose is handy)
       XDEBUG_MODE: "debug,develop"
       XDEBUG_CONFIG: "client_host=host.docker.internal client_port=9003"
 
     volumes:
       - ./:/var/www/html
-      - ./vendor:/var/www/html/vendor   # if you keep this, run `composer install` on host
-      # Alternatively (recommended for container-built vendor):
-      # - vendor:/var/www/html/vendor
+      - ./vendor:/var/www/html/vendor
 
     ports:
       - "8000:8000"
-      # Xdebug opens an OUTBOUND connection to your host on 9003,
-      # no need to publish 9003, but you can for clarity:
-      # - "9003:9003"
 
     # Needed on Linux so `host.docker.internal` resolves
     extra_hosts:
@@ -39,7 +33,3 @@ services:
       MYSQL_PASSWORD: laravel123
     ports:
       - "3306:3306"
-
-# If you decide to use a named volume for vendor instead of host bind:
-# volumes:
-#   vendor:
