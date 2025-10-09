@@ -133,8 +133,6 @@ docker compose exec app composer require --dev phpstan/phpstan
 ```
 
 
-
-
 #### Create a migration
 
 Example migration #1
@@ -193,12 +191,6 @@ docker compose exec app compose exec app composer phpcs
 ```
 
 
-
-
-
-
-
-
 ## Swagger documentation
 ```bash
 docker compose exec app composer require darkaonline/l5-swagger
@@ -211,6 +203,15 @@ docker compose exec app php artisan vendor:publish --provider="L5Swagger\L5Swagg
 ```bash
 docker compose exec app php artisan l5-swagger:generate
 ```
+
+### Tests
+
+Run all tests
+
+```bash
+docker compose exec app php artisan test
+```
+
 
 
 ## Deployment
